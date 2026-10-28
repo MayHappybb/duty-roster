@@ -1,0 +1,501 @@
+/* ---------- fonts used by the printed form ---------- */
+/* Windows: FangSong / SimHei; macOS: STFangsong / Heiti SC; otherwise fall back. */
+@font-face {
+  font-family: "DutySerif";
+  src: local("FangSong"), local("FangSong_GB2312"), local("仿宋"),
+    local("STFangsong"), local("STFangsong Regular");
+}
+
+@font-face {
+  font-family: "DutyHei";
+  src: local("SimHei"), local("黑体"), local("Heiti SC"), local("STHeiti"),
+    local("Hiragino Sans GB");
+}
+
+/* ---------- screen shell ---------- */
+:root {
+  --ink: #1b2430;
+  --muted: #6f6a61;
+  --line: #e4e0d7;
+  --bg: #f4f2ed;
+  --card: #ffffff;
+  --navy: #17324d;
+  --navy-dark: #0f2438;
+  --danger: #b3261e;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea, select { font: inherit; color: inherit; }
+
+/* ---------- header ---------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 66px;
+  padding: 10px 26px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--navy);
+  color: #fff;
+  flex: 0 0 auto;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
+}
+
+.brand p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.header-actions { display: flex; gap: 10px; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 15px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+  white-space: nowrap;
+}
+
+.btn:hover { background: #f8f6f2; border-color: #d5d0c4; }
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--navy-dark); border-color: var(--navy-dark); }
+
+.btn-quiet { border-color: transparent; background: transparent; color: var(--muted); }
+.btn-quiet:hover { background: #f1eee7; border-color: transparent; }
+
+/* ---------- layout ---------- */
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 24px 26px 60px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.panel {
+  position: sticky;
+  top: 90px;
+  flex: 0 0 372px;
+  width: 372px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  padding-right: 2px;
+  scrollbar-width: thin;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 16px 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 2px rgba(27, 36, 48, 0.03);
+}
+
+.card h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.4px;
+  color: var(--navy);
+}
+
+.count {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+.field { display: block; margin-bottom: 12px; }
+.field:last-child { margin-bottom: 0; }
+
+.field > span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfaf7;
+  padding: 9px 10px;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  background: #fff;
+  border-color: #9db0c2;
+  box-shadow: 0 0 0 3px rgba(23, 50, 77, 0.09);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 112px;
+  line-height: 1.55;
+  font-family: "SF Mono", "PingFang SC", "Microsoft YaHei", monospace, sans-serif;
+}
+
+select { cursor: pointer; }
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  background: #f7f5f0;
+  border-radius: 7px;
+  padding: 7px 9px;
+}
+
+.hint strong { color: var(--navy); font-weight: 600; }
+
+.advanced {
+  margin-top: 11px;
+  padding-top: 9px;
+  border-top: 1px solid #f0ede6;
+}
+
+.advanced summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted);
+  user-select: none;
+}
+
+.advanced summary::-webkit-details-marker { display: none; }
+
+.advanced summary::before {
+  content: "▸";
+  display: inline-block;
+  width: 1em;
+  color: #a49d8f;
+}
+
+.advanced[open] summary::before { content: "▾"; }
+
+.advanced-body { padding-top: 10px; }
+
+/* ---------- shift list ---------- */
+.shift-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 178px;
+  overflow-y: auto;
+  border-top: 1px solid #f0ede6;
+  scrollbar-width: thin;
+}
+
+.shift-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 1px;
+  border-bottom: 1px solid #f4f1eb;
+  font-size: 12px;
+}
+
+.shift-list li:last-child { border-bottom: 0; }
+.shift-list .dates { color: var(--muted); font-variant-numeric: tabular-nums; }
+.shift-list .person { font-weight: 600; color: var(--ink); }
+
+.shift-list .empty {
+  display: block;
+  padding: 12px 2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.panel-actions { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 2px 6px; }
+.panel-actions .btn { height: 34px; padding: 0 11px; font-size: 12.5px; }
+
+.print-note {
+  margin: 9px 2px 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: #8a8377;
+}
+
+.status {
+  min-height: 18px;
+  margin: 4px 2px 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--danger);
+}
+
+.status.ok { color: #2c6e49; }
+
+/* ---------- preview ---------- */
+.preview {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+.preview-empty {
+  width: 100%;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  border: 1px dashed #d8d2c5;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* ---------- A4 page ---------- */
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  padding: 20mm 13mm 0;
+  background: #fff;
+  box-shadow: 0 4px 22px rgba(27, 36, 48, 0.13), 0 1px 3px rgba(27, 36, 48, 0.08);
+  border-radius: 2px;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.page h1 {
+  margin: 0 0 5mm;
+  font-family: "DutyHei", "SimHei", "黑体", "Heiti SC", "STHeiti",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 18pt;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  letter-spacing: 0.2pt;
+  color: #000;
+}
+
+.tables {
+  display: flex;
+  align-items: flex-start;
+  gap: 3mm;
+  width: 184mm;
+}
+
+.sheet {
+  border-collapse: collapse;
+  table-layout: fixed;
+  height: 240mm;
+  background: #fff;
+  border: 1.5pt solid #000;
+}
+
+.sheet.daily { width: 93mm; }
+.sheet.weekly { width: 88mm; }
+
+.sheet td {
+  padding: 0;
+  border: 0.5pt solid #000;
+  text-align: center;
+  vertical-align: middle;
+  color: #000;
+  font-family: "Times New Roman", "DutySerif", "FangSong", "STFangsong", "仿宋",
+    "Songti SC", "SimSun", serif;
+  font-size: 14pt;
+  font-weight: 400;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sheet tr.hdr { height: 7.5mm; }
+.sheet tr.day-row { height: 7.258mm; }
+.sheet tr.week-row { height: 45mm; }
+
+/* year / month header cell */
+.sheet td.ym { position: relative; }
+
+.ym-year,
+.ym-month {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.ym-year { left: 12%; }
+.ym-month { right: 12%; }
+
+/* diagonal split header cell */
+.sheet td.diag {
+  position: relative;
+  padding: 0;
+  background-image: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.45pt),
+    #000 calc(50% - 0.45pt),
+    #000 calc(50% + 0.45pt),
+    transparent calc(50% + 0.45pt)
+  );
+}
+
+.diag-top,
+.diag-bottom {
+  position: absolute;
+  font-size: 14pt;
+  line-height: 1;
+}
+
+.diag-top { top: 6%; right: 7%; }
+.diag-bottom { bottom: 6%; left: 7%; }
+
+/* ---------- print ---------- */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    background: #fff !important;
+    width: 210mm;
+  }
+
+  .app-header,
+  .panel,
+  .no-print {
+    display: none !important;
+  }
+
+  .layout {
+    display: block;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+
+  .preview {
+    display: block;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 20mm 13mm 0;
+    box-shadow: none;
+    border-radius: 0;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .sheet,
+  .sheet td {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ---------- responsive screen preview ---------- */
+@media screen and (max-width: 1240px) {
+  .page { zoom: 0.82; }
+}
+
+@media screen and (max-width: 1020px) {
+  .layout { flex-direction: column; }
+  .panel {
+    position: static;
+    width: 100%;
+    flex: 1 1 auto;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+  .preview { width: 100%; }
+}
+
+@media screen and (max-width: 760px) {
+  .app-header { padding: 10px 14px; }
+  .brand p { display: none; }
+  .layout { padding: 16px 12px 40px; gap: 18px; }
+  .page { zoom: 0.48; }
+  .header-actions .btn { padding: 0 11px; font-size: 12.5px; }
+}

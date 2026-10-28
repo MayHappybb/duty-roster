@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D402 实验室值日表生成器</title>
+  <meta name="description" content="按人员顺序和起止日期自动生成实验室卫生值日表，可直接打印或另存为 PDF。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2317324d'/%3E%3Crect x='14' y='18' width='36' height='32' rx='3' fill='none' stroke='white' stroke-width='3'/%3E%3Cpath d='M14 28h36M24 13v10M40 13v10' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <rect x="3.5" y="5" width="17" height="15" rx="2"></rect>
+          <path d="M3.5 9.5h17M8 2.8v4M16 2.8v4"></path>
+        </svg>
+      </span>
+      <div>
+        <h1>D402 值日表生成器</h1>
+        <p>按人员顺序与起止日期自动排班 · 打印时选择“另存为 PDF”</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn btn-primary" id="printBtn">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2"></path>
+          <rect x="6" y="14" width="12" height="7" rx="1"></rect>
+        </svg>
+        打印 / 另存为 PDF
+      </button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <form id="configForm" autocomplete="off">
+        <section class="card">
+          <h2>基本信息</h2>
+          <label class="field">
+            <span>表格标题</span>
+            <input type="text" id="title" spellcheck="false">
+          </label>
+          <div class="field-row">
+            <label class="field">
+              <span>开始日期</span>
+              <input type="date" id="start" required>
+            </label>
+            <label class="field">
+              <span>结束日期</span>
+              <input type="date" id="end" required>
+            </label>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>值班人员</h2>
+          <label class="field">
+            <span>顺序（每行一人，按此顺序轮换）</span>
+            <textarea id="people" rows="7" spellcheck="false"></textarea>
+          </label>
+          <p class="hint" id="rotationHint"></p>
+
+          <details class="advanced">
+            <summary>高级：调整排班起点</summary>
+            <div class="advanced-body">
+              <label class="field">
+                <span>起点（自动对齐到周一）</span>
+                <input type="date" id="anchorDate">
+              </label>
+              <label class="field">
+                <span>该周值日人</span>
+                <select id="anchorPerson"></select>
+              </label>
+            </div>
+          </details>
+        </section>
+
+        <section class="card">
+          <h2>排班周期 <span class="count" id="shiftCount"></span></h2>
+          <ul class="shift-list" id="shiftList"></ul>
+        </section>
+
+        <div class="panel-actions">
+          <button type="button" class="btn" id="exportBtn">导出配置</button>
+          <button type="button" class="btn" id="importBtn">导入配置</button>
+          <button type="button" class="btn btn-quiet" id="resetBtn">恢复默认</button>
+          <input type="file" id="importFile" accept="application/json,.json" hidden>
+        </div>
+        <p class="print-note">打印设置：A4、纵向、边距“默认”，目标选择“另存为 PDF”。</p>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </form>
+    </aside>
+
+    <section class="preview" id="preview" aria-label="值日表预览"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
