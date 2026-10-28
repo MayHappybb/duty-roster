@@ -105,6 +105,16 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .btn:hover { background: #f8f6f2; border-color: #d5d0c4; }
 .btn:active { transform: translateY(1px); }
 
+.btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled:hover { background: #fff; border-color: var(--line); }
+
+.btn-primary:disabled:hover { background: var(--navy); border-color: var(--navy); }
+
 .btn-primary {
   background: var(--navy);
   border-color: var(--navy);

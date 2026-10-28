@@ -40,6 +40,7 @@
     shiftCount: $('#shiftCount'),
     preview: $('#preview'),
     status: $('#status'),
+    printBtn: $('#printBtn'),
   };
 
   let renderTimer = null;
@@ -418,6 +419,7 @@
 
     const errors = validate(config);
     if (errors.length) {
+      form.printBtn.disabled = true;
       setStatus(errors.join(' '), true);
       form.preview.replaceChildren(el('div', 'preview-empty', '请根据左侧提示修正配置。'));
       form.shiftList.replaceChildren(el('li', 'empty', '暂无排班'));
@@ -425,6 +427,7 @@
       return;
     }
 
+    form.printBtn.disabled = false;
     setStatus('');
     const pages = buildPages(config);
     form.preview.replaceChildren(...pages.map((page) => renderPage(page, config)));
@@ -492,7 +495,12 @@
 
     form.anchorDate.addEventListener('change', () => {
       const anchor = parseDate(form.anchorDate.value);
-      form.anchorDate.value = anchor ? isoDate(weekStart(anchor)) : '';
+      const fallback = parseDate(form.start.value);
+      form.anchorDate.value = anchor
+        ? isoDate(weekStart(anchor))
+        : fallback
+          ? isoDate(weekStart(fallback))
+          : '';
       render();
     });
 
